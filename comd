@@ -58,3 +58,17 @@ https://qiita.com/amagurik2/items/e908392c47ada97538c5
 sudo service httpd start
 yum update
 yum install php56-pdo
+
+/*
+* amazon login
+*/
+https://www.webprofessional.jp/easily-add-social-logins-to-your-app-with-socialite/
+SocialAccount"s"Serviceの脱字あり
+//***
+* いらない
+//https://sellercentral.amazon.com/gp
+*/
+https://github.com/kawax/socialite-amazon
+https://developer.amazon.com/
+https://developer.amazon.com/iba-sp/web-setting
+AMAZON_LOGIN_REDIRECT=url('login/amazon/callback')

@@ -8,7 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-
+    public function accounts(){
+        return $this->hasMany('App\LinkedSocialAccount');
+    }
+    public function histories(){
+        return $this->hasMany('App\History');
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -17,6 +22,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password',
     ];
+    
+    
 
     /**
      * The attributes that should be hidden for arrays.

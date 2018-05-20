@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+Route::get('/', 'IndexController@index');
+Route::get('result', 'ResultController@index');
+Route::get('login/{provider}', 'Auth\SocialAccountController@redirectToProvider')->middleware('guest');
+//Route::get('login/amazon', 'AmazonController@index');
+//Route::get('login/amazon/callback', 'AmazonController@callback');
+Route::get('login/{provider}/callback', 'Auth\SocialAccountController@handleProviderCallback');
+Route::get('logout', 'IndexController@logout');
+Auth::routes();
+
+Route::get('policy', 'SitepolicyContoroller@index');

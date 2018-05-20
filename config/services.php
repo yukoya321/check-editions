@@ -34,5 +34,10 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+    'amazon' => [
+        'client_id'     => env('AMAZON_LOGIN_ID'),
+        'client_secret' => env('AMAZON_LOGIN_SECRET'),
+        'redirect'      => env('AMAZON_LOGIN_REDIRECT'),
+    ],
 
 ];
