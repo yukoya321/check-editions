@@ -20,6 +20,7 @@ Route::get('login/{provider}', 'Auth\SocialAccountController@redirectToProvider'
 //Route::get('login/amazon/callback', 'AmazonController@callback');
 Route::get('login/{provider}/callback', 'Auth\SocialAccountController@handleProviderCallback');
 Route::get('logout', 'IndexController@logout');
+Route::delete('delete/{id}', 'IndexController@delete');
 Auth::routes();
 
 Route::get('policy', 'SitepolicyContoroller@index');

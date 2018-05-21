@@ -8,7 +8,8 @@ use App\User;
 class History extends Model
 {
     protected $fillable = ['word'];
+    
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany('App\User');
     }
 }

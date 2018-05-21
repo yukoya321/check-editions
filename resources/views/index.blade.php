@@ -21,18 +21,38 @@
      <button type="submit" class="btn btn-primary">Submit</button>
   </div>
 </form>
-@if(count($history))
+@if(count($user_histories))
+  <div class="col-6 mx-auto mb-4">
+    <h3>あなたの履歴</h3>
+    <ul class="list-group">
+    @foreach($user_histories as $h)
+      @php
+        $encoded = urlencode($h->word);
+      @endphp
+      <li class="list-group-item"><a class="d-block p-auto" href="/result?t={{ $encoded }}">{{ $h->word }}</a>
+      <form method="post" action="/delete/{{ $h->id }}">
+        {{ csrf_field() }}
+        {{ method_field('DELETE') }}
+        <button type="submit" class="delete button button-rounded button-raised button-caution">×</button>
+      </form>
+      </li>
+    @endforeach
+  </ul>
+</div>
+@endif
+@if(count($histories))
 <div class="col-6 mx-auto">
+  <h3>みんなの履歴</h3>
   @php
     //dd($history)
   @endphp
   <ul class="list-group">
-  @foreach($history as $h)
-    @php
-      $encoded = urlencode($h->word);
-    @endphp
-    <li class="list-group-item"><a class="d-block p-auto" href="/result?t={{ $encoded }}">{{ $h->word }}</a></li>
-  @endforeach
+    @foreach($histories as $h)
+      @php
+        $encoded = urlencode($h->word);
+      @endphp
+      <li class="list-group-item"><a class="d-block p-auto" href="/result?t={{ $encoded }}">{{ $h->word }}</a></li>
+    @endforeach
   </ul>
 </div>
 @endif

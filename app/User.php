@@ -11,8 +11,9 @@ class User extends Authenticatable
     public function accounts(){
         return $this->hasMany('App\LinkedSocialAccount');
     }
+    
     public function histories(){
-        return $this->hasMany('App\History');
+        return $this->belongsToMany('App\History');
     }
     /**
      * The attributes that are mass assignable.

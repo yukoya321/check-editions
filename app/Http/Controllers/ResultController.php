@@ -8,6 +8,7 @@ use Validator;
 use AmazonProduct;
 use ApaiIO\Operations\Search;
 use App\History;
+use App\User;
 use Auth;
 
 class ResultController extends Controller
@@ -112,7 +113,6 @@ class ResultController extends Controller
             't' => 'タイトル',
         ]);
     $book_title = $request->input('t');
-    $user = Auth::id();
     $page = 1;
     $loop_count = 1;
     $response = null;
@@ -120,19 +120,22 @@ class ResultController extends Controller
     try {
       $response = $this->retry_api( $book_title );
       if(isset($response['Items']['Item'])){
-        //ログインしている場合はuser_idをセットする
-        History::updateOrCreate([
-          'word' => $book_title, 
-        ])->touch();
+         History::firstOrCreate([
+            'word' => $book_title, 
+          ])->touch();
+          $history = History::where('word', $book_title)->first();
+        if(Auth::check()){
+          $user = User::find(Auth::id());
+          $user->histories()->attach($history->id);
+        }
         $response = $response['Items']['Item'];
-        //dd($response);
         $response = $this->check_lang( $book_title, $response, $page );
         $book_title = "「".$book_title."」";
       } elseif( isset($response['Items']['Request']['Errors']) ){
         $error = "検索結果がありません。";
       }
     } catch ( \Exception $e ) {
-        $response[] = "エラーが発生しました。更新してください。" .$e->getMessage();
+        $response[] = "エラーが発生しました。更新してください。a" .$e->getMessage();
     }
     $response = $this->check_res($response);
     return view('result.index', [
